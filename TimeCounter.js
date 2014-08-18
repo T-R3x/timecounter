@@ -11,10 +11,10 @@ function TimeCounter(autostart) {
     /**
      * Private members
      */
-    var count = 1;
-    var hours = 0;
+    var count   = 0;
+    var hours   = 0;
     var minutes = 0;
-    var secs = 0;
+    var secs    = 0;
 
     var _intervalTimer;
 
@@ -61,3 +61,47 @@ function TimeCounter(autostart) {
         console.debug('Do something');
     }
 }
+
+/**
+ * Define class methods.
+ */
+TimeCounter.prototype = {
+
+    /**
+     * Starts the counter
+     */
+    start: function () {},
+
+    /**
+     * Stops counter and reset props
+     */
+    stop: function () {},
+
+    /**
+     * Resets the counter props
+     */
+    reset: function () {},
+
+    /**
+     * Returns the whole time string.
+     */
+    getTime: function () {},
+
+    /**
+     * Handler called on each tick of the timer.
+     */
+    tick: function () {},
+
+    /**
+     * Triggers the tick event.
+     * Includes the current time of the tick.
+     */
+    triggerTickEvent: function () {},
+
+    /**
+     * 'Formats' the given number
+     *
+     * @param number
+     */
+    formatNumber: function (number) {}
+};
