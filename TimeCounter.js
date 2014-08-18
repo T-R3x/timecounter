@@ -3,7 +3,7 @@
  * It counts only how long it runs in following format:
  * <b>hh:mm:ss</b>
  *
- * @param boolean
+ * @param autostart boolean
  */
 function TimeCounter(autostart) {
     var autostart = autostart || false;
@@ -58,7 +58,7 @@ function TimeCounter(autostart) {
     });
 
     if (autostart) {
-        console.debug('Do something');
+        this.start();
     }
 }
 
@@ -70,7 +70,9 @@ TimeCounter.prototype = {
     /**
      * Starts the counter
      */
-    start: function () {},
+    start: function () {
+        this._intervalTimer = window.setInterval(this.tick, 1000, this);
+    },
 
     /**
      * Stops counter and reset props
@@ -89,8 +91,26 @@ TimeCounter.prototype = {
 
     /**
      * Handler called on each tick of the timer.
+     *
+     * @param timeCounter TimeCounter
      */
-    tick: function () {},
+    tick: function (timeCounter) {
+        timeCounter.count++;
+        timeCounter.secs++;
+
+        if(timeCounter.secs % 60 === 0) {
+            // have one minute completed
+            timeCounter.secs = 0;
+            timeCounter.minutes++;
+
+            if(timeCounter.minutes % 60 === 0) {
+                // have an hour completed
+                timeCounter.minutes = 0;
+                timeCounter.hours++;
+            }
+        }
+        console.debug(timeCounter.hours, timeCounter.minutes, timeCounter.secs);
+    },
 
     /**
      * Triggers the tick event.
@@ -101,7 +121,7 @@ TimeCounter.prototype = {
     /**
      * 'Formats' the given number
      *
-     * @param number
+     * @param number int
      */
     formatNumber: function (number) {}
 };
