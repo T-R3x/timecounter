@@ -15,7 +15,19 @@
 
 <script type="text/javascript" src="TimeCounter.js"></script>
 <script type="text/javascript">
-    var tC = new TimeCounter(true);
+    var tC = new TimeCounter();
+
+    // event handler to update the screen of the timer
+    document.addEventListener('TimeCounter:tick', function (ev) {
+        document.getElementById('timerScreen').innerHTML = ev.detail.time;
+    });
+
+    // add click handler on start
+    document.getElementById('startBtn').addEventListener('click', function (ev) {
+        console.debug('Start Timer');
+        tC.start();
+    });
+
 </script>
 </body>
 </html>
