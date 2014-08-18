@@ -111,14 +111,17 @@ TimeCounter.prototype = {
                 timeCounter.hours++;
             }
         }
-        console.debug(timeCounter.getTime());
+        timeCounter.triggerTickEvent();
     },
 
     /**
      * Triggers the tick event.
      * Includes the current time of the tick.
      */
-    triggerTickEvent: function () {},
+    triggerTickEvent: function () {
+        var ev = new CustomEvent('TimeCounter:tick', {'detail': {'time': this.getTime()} });
+        document.dispatchEvent(ev);
+    },
 
     /**
      * 'Formats' the given number
