@@ -77,12 +77,17 @@ TimeCounter.prototype = {
     /**
      * Stops counter and reset props
      */
-    stop: function () {},
+    stop: function () {
+        window.clearInterval(this._intervalTimer);
+        this.reset();
+    },
 
     /**
      * Resets the counter props
      */
-    reset: function () {},
+    reset: function () {
+        this.count = this.secs = this.minutes = this.hours = 0;
+    },
 
     /**
      * Returns the whole time string.
