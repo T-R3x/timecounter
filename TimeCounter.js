@@ -32,7 +32,7 @@ function TimeCounter(autostart) {
 
     Object.defineProperty(this, 'hours', {
         get: function () {
-            return hours;
+            return this.formatNumber(hours);
         },
         set: function (value) {
             hours = value;
@@ -41,7 +41,7 @@ function TimeCounter(autostart) {
 
     Object.defineProperty(this, 'minutes', {
         get: function () {
-            return minutes;
+            return this.formatNumber(minutes);
         },
         set: function (value) {
             minutes = value;
@@ -50,7 +50,7 @@ function TimeCounter(autostart) {
 
     Object.defineProperty(this, 'secs', {
         get: function () {
-            return secs;
+            return this.formatNumber(secs);
         },
         set: function (value) {
             secs = value;
@@ -87,7 +87,9 @@ TimeCounter.prototype = {
     /**
      * Returns the whole time string.
      */
-    getTime: function () {},
+    getTime: function () {
+        return [this.hours, this.minutes, this.secs].join(':');
+    },
 
     /**
      * Handler called on each tick of the timer.
@@ -109,7 +111,7 @@ TimeCounter.prototype = {
                 timeCounter.hours++;
             }
         }
-        console.debug(timeCounter.hours, timeCounter.minutes, timeCounter.secs);
+        console.debug(timeCounter.getTime());
     },
 
     /**
@@ -123,5 +125,7 @@ TimeCounter.prototype = {
      *
      * @param number int
      */
-    formatNumber: function (number) {}
+    formatNumber: function (number) {
+        return (number < 10) ? '0' + number : number;
+    }
 };
