@@ -35,6 +35,12 @@ Stops the TimeCounter and resets the time value.
 ### getTime 
 Returns the counted time in following format: "hh:mm:ss"
 
+### setTime
+Sets the time of the counter with the given hours, minutes and seconds.
+```js
+timeCounter.setTime([hrs], [mins], [secs]);
+```
+
 ### tick 
 Tick function where the time is counting. It will be called by the each tick.
 
