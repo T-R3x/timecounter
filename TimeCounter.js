@@ -16,7 +16,7 @@ function TimeCounter(autostart) {
     var minutes = 0;
     var secs    = 0;
 
-    var _intervalTimer;
+    var _intervalTimer = undefined;
 
     /**
      * Define getters and setters
@@ -71,6 +71,12 @@ TimeCounter.prototype = {
      * Starts the counter
      */
     start: function () {
+
+        // start the timer if it is not running.
+        if(this._intervalTimer !== undefined) {
+            return false;
+        }
+        console.log('Start time counting with: ' + this.getTime());
         this._intervalTimer = window.setInterval(this.tick, 1000, this);
     },
 
@@ -78,7 +84,15 @@ TimeCounter.prototype = {
      * Stops counter and reset props
      */
     stop: function () {
+
+        // do the clearing only if the timer is currently running
+        if(this._intervalTimer === undefined) {
+            return false;
+        }
+
+        console.log('Stop time counting at: ' + this.getTime());
         window.clearInterval(this._intervalTimer);
+        this._intervalTimer = undefined;
         this.reset();
     },
 
