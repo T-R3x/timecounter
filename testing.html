@@ -66,8 +66,8 @@
 
 <script type="text/javascript" src="TimeCounter.js"></script>
 <script type="text/javascript">
-    var tC = new TimeCounter();
-    tC.setTime(2, 42, 14);
+    var tC = new TimeCounter(false, 2, 42, 14);
+
     // event handler to update the screen of the timer
     document.addEventListener('TimeCounter:tick', function (ev) {
         document.getElementById('timerScreen').innerHTML = ev.detail.time;

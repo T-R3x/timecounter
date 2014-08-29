@@ -4,8 +4,11 @@
  * <b>hh:mm:ss</b>
  *
  * @param autostart boolean
+ * @param secs
+ * @param mins
+ * @param hrs
  */
-function TimeCounter(autostart) {
+function TimeCounter(autostart, hrs, mins, secs) {
     autostart = autostart || false;
 
     /**
@@ -56,6 +59,9 @@ function TimeCounter(autostart) {
             seconds = value;
         }
     });
+
+    //set the default time
+    this.setTime(hrs, mins, secs);
 
     if (autostart) {
         this.start();
