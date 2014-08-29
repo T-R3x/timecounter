@@ -67,7 +67,7 @@
 <script type="text/javascript" src="TimeCounter.js"></script>
 <script type="text/javascript">
     var tC = new TimeCounter();
-
+    tC.setTime(2, 42, 14);
     // event handler to update the screen of the timer
     document.addEventListener('TimeCounter:tick', function (ev) {
         document.getElementById('timerScreen').innerHTML = ev.detail.time;
@@ -75,13 +75,11 @@
 
     // add click handler on start
     document.getElementById('startBtn').addEventListener('click', function (ev) {
-        console.debug('Start Timer');
         tC.start();
     });
 
     // add click handler on stop
     document.getElementById('stopBtn').addEventListener('click', function (ev) {
-        console.debug('Stop Timer');
         tC.stop();
     });
 

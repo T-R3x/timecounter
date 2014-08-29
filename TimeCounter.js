@@ -6,7 +6,7 @@
  * @param autostart boolean
  */
 function TimeCounter(autostart) {
-    var autostart = autostart || false;
+    autostart = autostart || false;
 
     /**
      * Private members
@@ -14,7 +14,7 @@ function TimeCounter(autostart) {
     var count   = 0;
     var hours   = 0;
     var minutes = 0;
-    var secs    = 0;
+    var seconds = 0;
 
     var _intervalTimer = undefined;
 
@@ -48,12 +48,12 @@ function TimeCounter(autostart) {
         }
     });
 
-    Object.defineProperty(this, 'secs', {
+    Object.defineProperty(this, 'seconds', {
         get: function () {
-            return this.formatNumber(secs);
+            return this.formatNumber(seconds);
         },
         set: function (value) {
-            secs = value;
+            seconds = value;
         }
     });
 
@@ -100,14 +100,43 @@ TimeCounter.prototype = {
      * Resets the counter props
      */
     reset: function () {
-        this.count = this.secs = this.minutes = this.hours = 0;
+        this.count = this.seconds = this.minutes = this.hours = 0;
     },
 
     /**
      * Returns the whole time string.
      */
     getTime: function () {
-        return [this.hours, this.minutes, this.secs].join(':');
+        return [this.hours, this.minutes, this.seconds].join(':');
+    },
+    
+    /**
+     * Sets the time of the time counter.
+     *
+     * @param hours
+     * @param minutes
+     * @param seconds
+     */
+    setTime: function (hours, minutes, seconds) {
+        hours = hours || 0;
+        minutes = minutes || 0;
+        seconds = seconds || 0;
+
+        // If the given seconds greater than 59,
+        // then throw an error.
+        if(seconds > 59) {
+            throw new Error('Seconds must be between 0 - 59');
+        }
+
+        // If the given minutes greater than 59,
+        // then throw an error.
+        if(minutes > 59) {
+            throw new Error('Minutes must be between 0 - 59');
+        }
+
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
     },
 
     /**
@@ -117,11 +146,11 @@ TimeCounter.prototype = {
      */
     tick: function (timeCounter) {
         timeCounter.count++;
-        timeCounter.secs++;
+        timeCounter.seconds++;
 
-        if(timeCounter.secs % 60 === 0) {
+        if(timeCounter.seconds % 60 === 0) {
             // have one minute completed
-            timeCounter.secs = 0;
+            timeCounter.seconds = 0;
             timeCounter.minutes++;
 
             if(timeCounter.minutes % 60 === 0) {
