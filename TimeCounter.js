@@ -27,7 +27,6 @@ function TimeCounter() {
         timeString  : '00:00:00'
     }
 
-
     if(options) {
         // run through the defaults to replace the defaults with the given options
         var key;
@@ -137,26 +136,51 @@ TimeCounter.prototype = {
      * @param minutes
      * @param seconds
      */
-    setTime: function (hours, minutes, seconds) {
-        hours = hours || 0;
-        minutes = minutes || 0;
-        seconds = seconds || 0;
+    setTime: function () {
+        var options = arguments[0] || {};
+        var hrs     = 0;
+        var mins    = 0;
+        var secs    = 0;
 
-        // If the given seconds greater than 59,
-        // then throw an error.
-        if(seconds > 59) {
-            throw new Error('Seconds must be between 0 - 59');
+        if(Object.keys(options).length) {
+            if(options.hasOwnProperty('timeString')) {
+                // user given time string!
+                // If the user specify a time string and the separate times (hours, minutes and seconds),
+                // prefer the time string instead.
+                var times = options.timeString.split(':');
+                if(times.length === 3) {
+                    hrs     = (!isNaN(times[0])) ? parseInt(times[0]) : 0;
+                    mins    = (!isNaN(times[1])) ? parseInt(times[1]) : 0;
+                    secs    = (!isNaN(times[2])) ? parseInt(times[2]) : 0;
+                } else {
+                    throw new SyntaxError('The given time string is invalid! Please use the following format "hh:mm:ss". Given time is: ' + options.timeString);
+                }
+            } else {
+                // user gives the times separately.
+                hrs     = (!isNaN(options.hours))   ? parseInt(options.hours) : 0;
+                mins    = (!isNaN(options.minutes)) ? parseInt(options.minutes) : 0;
+                secs    = (!isNaN(options.seconds)) ? parseInt(options.seconds) : 0;
+            }
+
+            // If the given seconds are greater than 59,
+            // then throw an error.
+            if(secs > 59) {
+                throw new Error('Seconds must be between 0 - 59');
+            }
+
+            // If the given minutes are greater than 59,
+            // then throw an error.
+            if(mins > 59) {
+                throw new Error('Minutes must be between 0 - 59');
+            }
+
+            this.hours      = hrs;
+            this.minutes    = mins;
+            this.seconds    = secs;
+
+        } else {
+            throw new SyntaxError('No arguments was given!');
         }
-
-        // If the given minutes greater than 59,
-        // then throw an error.
-        if(minutes > 59) {
-            throw new Error('Minutes must be between 0 - 59');
-        }
-
-        this.hours = hours;
-        this.minutes = minutes;
-        this.seconds = seconds;
     },
 
     /**
