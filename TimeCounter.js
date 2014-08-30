@@ -76,6 +76,9 @@ function TimeCounter() {
         }
     });
 
+    // sets the time
+    this.setTime(defaults);
+
     if (defaults.autostart) {
         this.start();
     }
@@ -132,8 +135,8 @@ TimeCounter.prototype = {
     /**
      * Sets the time of the time counter.
      */
-    setTime: function () {
-        var options = arguments[0] || {};
+    setTime: function (opts) {
+        var options = arguments[0] || opts || {};
         var hrs     = 0;
         var mins    = 0;
         var secs    = 0;
@@ -175,7 +178,9 @@ TimeCounter.prototype = {
             this.seconds    = secs;
 
         } else {
-            throw new SyntaxError('No arguments was given!');
+            if(opts === undefined) {
+                throw new SyntaxError('No arguments was given!');
+            }
         }
     },
 
