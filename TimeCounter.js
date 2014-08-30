@@ -131,10 +131,6 @@ TimeCounter.prototype = {
 
     /**
      * Sets the time of the time counter.
-     *
-     * @param hours
-     * @param minutes
-     * @param seconds
      */
     setTime: function () {
         var options = arguments[0] || {};
