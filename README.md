@@ -36,9 +36,10 @@ Stops the TimeCounter and resets the time value.
 Returns the counted time in following format: "hh:mm:ss"
 
 ### setTime
-Sets the time of the counter with the given hours, minutes and seconds.
+Sets the time of the counter with given parameters.
+The parameters must be an object that contains a `timeString: '00:00:00'` or the separate time parts of time (hours, minutes, seconds).
 ```js
-timeCounter.setTime([hrs], [mins], [secs]);
+timeCounter.setTime({timeString = '00:00:00', hours: 1, minutes: 22, seconds: 33});
 ```
 
 ### tick 
