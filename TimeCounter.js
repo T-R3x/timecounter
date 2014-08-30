@@ -3,23 +3,40 @@
  * It counts only how long it runs in following format:
  * <b>hh:mm:ss</b>
  *
- * @param autostart boolean
- * @param secs
- * @param mins
- * @param hrs
  */
-function TimeCounter(autostart, hrs, mins, secs) {
-    autostart = autostart || false;
-
+function TimeCounter() {
     /**
      * Private members
      */
     var count   = 0;
-    var hours   = 0;
-    var minutes = 0;
-    var seconds = 0;
-
     var _intervalTimer = undefined;
+
+    // given options
+    var options = arguments[0] || {};
+
+    /**
+     * Default attributes
+     *
+     * @type {{autostart: boolean, hours: number, minutes: number, seconds: number, timeString: string}}
+     */
+    var defaults = {
+        autostart   : false,
+        hours       : 0,
+        minutes     : 0,
+        seconds     : 0,
+        timeString  : '00:00:00'
+    }
+
+
+    if(options) {
+        // run through the defaults to replace the defaults with the given options
+        var key;
+        for (key in defaults) {
+            if (options[key] !== undefined) {
+                defaults[key] = options[key];
+            }
+        }
+    }
 
     /**
      * Define getters and setters
@@ -35,35 +52,32 @@ function TimeCounter(autostart, hrs, mins, secs) {
 
     Object.defineProperty(this, 'hours', {
         get: function () {
-            return this.formatNumber(hours);
+            return this.formatNumber(defaults.hours);
         },
         set: function (value) {
-            hours = value;
+            defaults.hours = value;
         }
     });
 
     Object.defineProperty(this, 'minutes', {
         get: function () {
-            return this.formatNumber(minutes);
+            return this.formatNumber(defaults.minutes);
         },
         set: function (value) {
-            minutes = value;
+            defaults.minutes = value;
         }
     });
 
     Object.defineProperty(this, 'seconds', {
         get: function () {
-            return this.formatNumber(seconds);
+            return this.formatNumber(defaults.seconds);
         },
         set: function (value) {
-            seconds = value;
+            defaults.seconds = value;
         }
     });
 
-    //set the default time
-    this.setTime(hrs, mins, secs);
-
-    if (autostart) {
+    if (defaults.autostart) {
         this.start();
     }
 }
@@ -115,7 +129,7 @@ TimeCounter.prototype = {
     getTime: function () {
         return [this.hours, this.minutes, this.seconds].join(':');
     },
-    
+
     /**
      * Sets the time of the time counter.
      *
