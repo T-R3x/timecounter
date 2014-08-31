@@ -3,6 +3,8 @@
  * It counts only how long it runs in following format:
  * <b>hh:mm:ss</b>
  *
+ * @author Sascha Hofrichter
+ * @version 1.0.0
  */
 function TimeCounter() {
     /**
