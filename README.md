@@ -3,7 +3,7 @@
 
 ## Usage 
 At this moment, this TimeCounter is a simple JavaScript-Class with an old-school insertion in your website. 
-`<script src="path/to/TimeCounter.js"></script>`   
+`<script src="path/to/timecounter.js"></script>`
 (ToDo: create an AMD)  
 The TimeCounter triggers an custom event on each tick (every second).
 This event has a `detail` attribute which contains the current time.
