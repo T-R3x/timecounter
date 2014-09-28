@@ -52,6 +52,11 @@
             border: 1px solid #e74c3c;
             background: #c0392b;
         }
+
+        .reset:hover {
+            border: 1px solid #3498db;
+            background: #2980b9;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +66,7 @@
     <div>
         <button id="startBtn" class="start">start</button>
         <button id="stopBtn" class="stop">stop</button>
+        <button id="resetBtn" class="reset">reset</button>
     </div>
 </div>
 
@@ -76,6 +82,11 @@
         document.getElementById('timerScreen').innerHTML = ev.detail.time;
     });
 
+    // event handler to update the screen of the timer
+    document.addEventListener('TimeCounter:reset', function (ev) {
+        document.getElementById('timerScreen').innerHTML = ev.detail.time;
+    });
+
     // add click handler on start
     document.getElementById('startBtn').addEventListener('click', function (ev) {
         tC.start();
@@ -84,6 +95,11 @@
     // add click handler on stop
     document.getElementById('stopBtn').addEventListener('click', function (ev) {
         tC.stop();
+    });
+
+    // add click handler on stop
+    document.getElementById('resetBtn').addEventListener('click', function (ev) {
+        tC.reset();
     });
 
 </script>
