@@ -4,7 +4,7 @@
  * <b>hh:mm:ss</b>
  *
  * @author Sascha Hofrichter
- * @version 1.0.0
+ * @version 1.1.0
  */
 function TimeCounter() {
     /**
@@ -117,13 +117,19 @@ TimeCounter.prototype = {
         console.log('Stop time counting at: ' + this.getTime());
         window.clearInterval(this._intervalTimer);
         this._intervalTimer = undefined;
-        this.reset();
+        this.resetProps();
+    },
+
+    reset: function () {
+        // stopping the time counting (includes property reset)
+        this.stop();
+        this.triggerResetEvent();
     },
 
     /**
      * Resets the counter props
      */
-    reset: function () {
+    resetProps: function () {
         this.count = this.seconds = this.minutes = this.hours = 0;
     },
 
@@ -216,6 +222,16 @@ TimeCounter.prototype = {
     triggerTickEvent: function () {
         var ev = new CustomEvent('TimeCounter:tick', {'detail': {'time': this.getTime()} });
         document.dispatchEvent(ev);
+    },
+
+    /**
+     * Triggers the reset event.
+     * Includes the reset time.
+     */
+    triggerResetEvent: function () {
+        var ev = new CustomEvent('TimeCounter:reset', {'detail': {'time': this.getTime()} });
+        document.dispatchEvent(ev);
+        this.start();
     },
 
     /**
