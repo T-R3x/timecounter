@@ -32,6 +32,12 @@ Starts the TimeCounter.
 ### stop 
 Stops the TimeCounter and resets the time value.
 
+### reset
+Resets the whole counting. (stop, resetProps and starts again)
+
+### resetProps
+Resets the 'time' properties (hours, seconds, minutes).
+
 ### getTime 
 Returns the counted time in following format: "hh:mm:ss"
 
@@ -47,7 +53,11 @@ Tick function where the time is counting. It will be called by the each tick.
 
 ### triggerTickEvent 
 Custom event which will be fired on each tick.
-It contains the current time string. 
+It contains the current time string.
+
+### triggerResetEvent
+Custom event which will be fired on resetting.
+It contains the reset time string.
 
 ### formatNumber 
 Returns a string with the given number. 
