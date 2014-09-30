@@ -12,6 +12,7 @@ function TimeCounter() {
      */
     var count   = 0;
     var _intervalTimer = undefined;
+    var isPaused = false;
 
     // given options
     var options = arguments[0] || {};
@@ -98,8 +99,12 @@ TimeCounter.prototype = {
 
         // start the timer if it is not running.
         if(this._intervalTimer !== undefined) {
+            if(this.isPaused) {
+                this.resumeCounting();
+            }
             return false;
         }
+
         console.log('Start time counting with: ' + this.getTime());
         this._intervalTimer = window.setInterval(this.tick, 1000, this);
     },
@@ -120,10 +125,36 @@ TimeCounter.prototype = {
         this.resetProps();
     },
 
+    /**
+     * Resets the whole counter and start it again.
+     */
     reset: function () {
         // stopping the time counting (includes property reset)
         this.stop();
         this.triggerResetEvent();
+    },
+
+    /**
+     * Pauses the current time counting
+     */
+    pause: function () {
+        // TODO: pause the counting
+        if(!this.isPaused) {
+            console.log('Pause the counting at : ' + this.getTime());
+            this.isPaused = true;
+        } else {
+            this.resumeCounting();
+        }
+    },
+
+    /**
+     * Resumes the time counting
+     */
+    resumeCounting: function () {
+        if(this.isPaused) {
+            console.log('Resume time counting on: ' + this.getTime());
+            this.isPaused = false;
+        }
     },
 
     /**
@@ -198,21 +229,23 @@ TimeCounter.prototype = {
      * @param timeCounter TimeCounter
      */
     tick: function (timeCounter) {
-        timeCounter.count++;
-        timeCounter.seconds++;
+        if(!timeCounter.isPaused) {
+            timeCounter.count++;
+            timeCounter.seconds++;
 
-        if(timeCounter.seconds % 60 === 0) {
-            // have one minute completed
-            timeCounter.seconds = 0;
-            timeCounter.minutes++;
+            if(timeCounter.seconds % 60 === 0) {
+                // have one minute completed
+                timeCounter.seconds = 0;
+                timeCounter.minutes++;
 
-            if(timeCounter.minutes % 60 === 0) {
-                // have an hour completed
-                timeCounter.minutes = 0;
-                timeCounter.hours++;
+                if(timeCounter.minutes % 60 === 0) {
+                    // have an hour completed
+                    timeCounter.minutes = 0;
+                    timeCounter.hours++;
+                }
             }
+            timeCounter.triggerTickEvent();
         }
-        timeCounter.triggerTickEvent();
     },
 
     /**

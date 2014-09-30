@@ -67,10 +67,11 @@
         <button id="startBtn" class="start">start</button>
         <button id="stopBtn" class="stop">stop</button>
         <button id="resetBtn" class="reset">reset</button>
+        <button id="pauseBtn" class="reset">pause</button>
     </div>
 </div>
 
-<script type="text/javascript" src="timecounter.min.js"></script>
+<script type="text/javascript" src="../timecounter.js"></script>
 <script type="text/javascript">
     var tC = new TimeCounter();
 
@@ -97,9 +98,14 @@
         tC.stop();
     });
 
-    // add click handler on stop
+    // add click handler on reset
     document.getElementById('resetBtn').addEventListener('click', function (ev) {
         tC.reset();
+    });
+
+    // add click handler on pause
+    document.getElementById('pauseBtn').addEventListener('click', function (ev) {
+        tC.pause();
     });
 
 </script>
