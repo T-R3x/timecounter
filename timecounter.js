@@ -129,6 +129,10 @@ TimeCounter.prototype = {
      * Resets the whole counter and start it again.
      */
     reset: function () {
+        if(this._intervalTimer === undefined) {
+            return false;
+        }
+
         // stopping the time counting (includes property reset)
         this.stop();
         this.triggerResetEvent();
@@ -138,7 +142,10 @@ TimeCounter.prototype = {
      * Pauses the current time counting
      */
     pause: function () {
-        // TODO: pause the counting
+        if(this._intervalTimer === undefined) {
+            return false;
+        }
+
         if(!this.isPaused) {
             console.log('Pause the counting at : ' + this.getTime());
             this.isPaused = true;
