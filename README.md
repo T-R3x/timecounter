@@ -48,6 +48,12 @@ The parameters must be an object that contains a `timeString: '00:00:00'` or the
 timeCounter.setTime({timeString = '00:00:00', hours: 1, minutes: 22, seconds: 33});
 ```
 
+### setTimeByDate
+Sets the starting time by a given date.
+```js
+timeCounter.setTimeByDate(new Date(), true|false)
+```
+
 ### tick 
 Tick function where the time is counting. It will be called by the each tick.
 

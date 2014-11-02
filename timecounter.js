@@ -133,6 +133,7 @@ TimeCounter.prototype = {
             return false;
         }
 
+        console.log('Reset time counting at: ' + this.getTime());
         // stopping the time counting (includes property reset)
         this.stop();
         this.triggerResetEvent();
@@ -227,6 +228,24 @@ TimeCounter.prototype = {
             if(opts === undefined) {
                 throw new SyntaxError('No arguments was given!');
             }
+        }
+    },
+
+    /**
+     * Sets the starting time by a given date.
+     *
+     * @param date
+     * @param autoplay
+     */
+    setTimeByDate: function (date, autoplay) {
+        if(!date instanceof Date) {
+            throw new SyntaxError('The given date is not an instance of Date');
+        }
+
+        this.setTime({hours: date.getHours(), minutes: date.getMinutes(), seconds: date.getSeconds()});
+
+        if(autoplay !== undefined && autoplay) {
+            this.start();
         }
     },
 
