@@ -10,9 +10,9 @@ function TimeCounter() {
     /**
      * Private members
      */
-    var count   = 0;
-    var _intervalTimer = undefined;
-    var isPaused = false;
+    var count           = 0;
+    var _intervalTimer  = undefined;
+    var isPaused        = false;
 
     // given options
     var options = arguments[0] || {};
@@ -122,20 +122,17 @@ TimeCounter.prototype = {
         console.log('Stop time counting at: ' + this.getTime());
         window.clearInterval(this._intervalTimer);
         this._intervalTimer = undefined;
-        this.resetProps();
+        this.isPaused = false;
+        this.resetTimeProps();
     },
 
     /**
      * Resets the whole counter and start it again.
      */
     reset: function () {
-        if(this._intervalTimer === undefined) {
-            return false;
-        }
 
         console.log('Reset time counting at: ' + this.getTime());
-        // stopping the time counting (includes property reset)
-        this.stop();
+        this.resetTimeProps();
         this.triggerResetEvent();
     },
 
@@ -168,7 +165,7 @@ TimeCounter.prototype = {
     /**
      * Resets the counter props
      */
-    resetProps: function () {
+    resetTimeProps: function () {
         this.count = this.seconds = this.minutes = this.hours = 0;
     },
 
@@ -290,7 +287,6 @@ TimeCounter.prototype = {
     triggerResetEvent: function () {
         var ev = new CustomEvent('TimeCounter:reset', {'detail': {'time': this.getTime()} });
         document.dispatchEvent(ev);
-        this.start();
     },
 
     /**
