@@ -7,12 +7,14 @@
  * @version 1.2.0
  */
 function TimeCounter() {
+    'use strict';
+
     /**
      * Private members
      */
-    var count           = 0;
-    var _intervalTimer  = undefined;
-    var isPaused        = false;
+    var _count           = 0;
+    var _intervalTimer   = undefined;
+    var _isPaused        = false;
 
     // given options
     var options = arguments[0] || {};
@@ -45,10 +47,10 @@ function TimeCounter() {
      */
     Object.defineProperty(this, 'count', {
         get: function () {
-            return count;
+            return _count;
         },
         set: function (value) {
-            count = value;
+            _count = value;
         }
     });
 
@@ -99,7 +101,7 @@ TimeCounter.prototype = {
 
         // start the timer if it is not running.
         if(this._intervalTimer !== undefined) {
-            if(this.isPaused) {
+            if(this._isPaused) {
                 this.resumeCounting();
             }
             return false;
@@ -122,7 +124,7 @@ TimeCounter.prototype = {
         console.log('Stop time counting at: ' + this.getTime());
         window.clearInterval(this._intervalTimer);
         this._intervalTimer = undefined;
-        this.isPaused = false;
+        this._isPaused = false;
         this.resetTimeProps();
     },
 
@@ -144,9 +146,9 @@ TimeCounter.prototype = {
             return false;
         }
 
-        if(!this.isPaused) {
+        if(!this._isPaused) {
             console.log('Pause the counting at : ' + this.getTime());
-            this.isPaused = true;
+            this._isPaused = true;
         } else {
             this.resumeCounting();
         }
@@ -156,9 +158,9 @@ TimeCounter.prototype = {
      * Resumes the time counting
      */
     resumeCounting: function () {
-        if(this.isPaused) {
+        if(this._isPaused) {
             console.log('Resume time counting on: ' + this.getTime());
-            this.isPaused = false;
+            this._isPaused = false;
         }
     },
 
@@ -166,7 +168,7 @@ TimeCounter.prototype = {
      * Resets the counter props
      */
     resetTimeProps: function () {
-        this.count = this.seconds = this.minutes = this.hours = 0;
+        this._count = this.seconds = this.minutes = this.hours = 0;
     },
 
     /**
@@ -252,7 +254,7 @@ TimeCounter.prototype = {
      * @param timeCounter TimeCounter
      */
     tick: function (timeCounter) {
-        if(!timeCounter.isPaused) {
+        if(!timeCounter._isPaused) {
             timeCounter.count++;
             timeCounter.seconds++;
 
