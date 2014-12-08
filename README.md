@@ -1,6 +1,8 @@
 #Time Counter
 **Simple JavaScript time counter**
 
+[DEMO](https://code-worker.de/timecounterjs)
+
 ## Usage 
 At this moment, this TimeCounter is a simple JavaScript-Class with an old-school insertion in your website. 
 `<script src="path/to/timecounter.js"></script>`
