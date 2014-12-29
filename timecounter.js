@@ -4,7 +4,7 @@
  * <b>hh:mm:ss</b>
  *
  * @author Sascha Hofrichter
- * @version 1.2.0
+ * @version 1.2.1
  */
 function TimeCounter() {
     'use strict';
@@ -32,7 +32,7 @@ function TimeCounter() {
         timeString  : '00:00:00'
     }
 
-    if(options) {
+    if(options instanceof Object) {
         // run through the defaults to replace the defaults with the given options
         var key;
         for (key in defaults) {
@@ -182,13 +182,13 @@ TimeCounter.prototype = {
      * Sets the time of the time counter.
      */
     setTime: function (opts) {
-        var options = arguments[0] || opts || {};
+        var options = opts || {};
         var hrs     = 0;
         var mins    = 0;
         var secs    = 0;
 
         if(Object.keys(options).length) {
-            if(options.hasOwnProperty('timeString')) {
+            if(options.timeString !== undefined && options.timeString != '00:00:00') {
                 // user given time string!
                 // If the user specify a time string and the separate times (hours, minutes and seconds),
                 // prefer the time string instead.
@@ -237,7 +237,8 @@ TimeCounter.prototype = {
      * @param autoplay
      */
     setTimeByDate: function (date, autoplay) {
-        if(!date instanceof Date) {
+
+        if(date === undefined || !date instanceof Date) {
             throw new SyntaxError('The given date is not an instance of Date');
         }
 
