@@ -4,7 +4,7 @@
  * <b>hh:mm:ss</b>
  *
  * @author Sascha Hofrichter
- * @version 1.2.1
+ * @version 1.3.0
  */
 function TimeCounter() {
     'use strict';
@@ -12,9 +12,12 @@ function TimeCounter() {
     /**
      * Private members
      */
-    var _count           = 0;
-    var _intervalTimer   = undefined;
-    var _isPaused        = false;
+    var _count          = 0,
+        _intervalTimer  = undefined,
+        _isPaused       = false,
+        TICK            = 'tick',
+        RESET           = 'reset',
+        SETTIME         = 'settime';
 
     // given options
     var options = arguments[0] || {};
@@ -81,6 +84,24 @@ function TimeCounter() {
         }
     });
 
+    Object.defineProperty(this, 'TICK', {
+        get: function () {
+            return TICK;
+        }
+    });
+
+    Object.defineProperty(this, 'RESET', {
+        get: function () {
+            return RESET;
+        }
+    });
+
+    Object.defineProperty(this, 'SETTIME', {
+        get: function () {
+            return SETTIME;
+        }
+    });
+
     // sets the time
     this.setTime(defaults);
 
@@ -135,7 +156,7 @@ TimeCounter.prototype = {
 
         console.log('Reset time counting at: ' + this.getTime());
         this.resetTimeProps();
-        this.triggerResetEvent();
+        this.triggerEvent(this.RESET);
     },
 
     /**
@@ -228,6 +249,7 @@ TimeCounter.prototype = {
                 throw new SyntaxError('No arguments was given!');
             }
         }
+        this.triggerEvent(this.SETTIME);
     },
 
     /**
@@ -270,26 +292,20 @@ TimeCounter.prototype = {
                     timeCounter.hours++;
                 }
             }
-            timeCounter.triggerTickEvent();
+            timeCounter.triggerEvent(timeCounter.TICK);
         }
     },
 
     /**
-     * Triggers the tick event.
-     * Includes the current time of the tick.
+     * Triggers a specific TimeCounter-Event includes the time.
+     *
+     * @param type
      */
-    triggerTickEvent: function () {
-        var ev = new CustomEvent('TimeCounter:tick', {'detail': {'time': this.getTime()} });
-        document.dispatchEvent(ev);
-    },
-
-    /**
-     * Triggers the reset event.
-     * Includes the reset time.
-     */
-    triggerResetEvent: function () {
-        var ev = new CustomEvent('TimeCounter:reset', {'detail': {'time': this.getTime()} });
-        document.dispatchEvent(ev);
+    triggerEvent: function (type) {
+        if(type !== undefined) {
+            var ev = new CustomEvent('TimeCounter:' + type, {'detail': {'time': this.getTime()} });
+            document.dispatchEvent(ev);
+        }
     },
 
     /**
