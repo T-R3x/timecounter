@@ -1,0 +1,49 @@
+.container {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+p {
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 400;
+    font-size: 58pt;
+    color: #bdc3c7;
+}
+
+button {
+    width: 120px;
+    height: 50px;
+    outline: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 18pt;
+}
+
+.start {
+    border: 1px solid #27ae60;
+    background: #2ecc71;
+}
+
+.start:hover {
+    border: 1px solid #2ecc71;
+    background: #27ae60;
+}
+
+.stop {
+    border: 1px solid #bdc3c7;
+    background: #95a5a6;
+}
+
+.stop:hover {
+    border: 1px solid #e74c3c;
+    background: #c0392b;
+}
+
+.reset:hover {
+    border: 1px solid #3498db;
+    background: #2980b9;
+}

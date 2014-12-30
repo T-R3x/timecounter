@@ -7,57 +7,8 @@
     <!-- font -->
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
 
-    <style>
-        .container {
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-            margin: 0 auto;
-        }
-
-        p {
-            font-family: "Roboto Condensed", sans-serif;
-            font-weight: 400;
-            font-size: 58pt;
-            color: #bdc3c7;
-        }
-
-        button {
-            width: 120px;
-            height: 50px;
-            outline: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            font-family: "Roboto Condensed", sans-serif;
-            font-size: 18pt;
-        }
-
-        .start {
-             border: 1px solid #27ae60;
-             background: #2ecc71;
-         }
-
-        .start:hover {
-            border: 1px solid #2ecc71;
-            background: #27ae60;
-        }
-
-        .stop {
-            border: 1px solid #bdc3c7;
-            background: #95a5a6;
-        }
-
-        .stop:hover {
-            border: 1px solid #e74c3c;
-            background: #c0392b;
-        }
-
-        .reset:hover {
-            border: 1px solid #3498db;
-            background: #2980b9;
-        }
-    </style>
+    <!-- custom styles -->
+    <link href="css/general.css">
 </head>
 <body>
 
@@ -70,13 +21,9 @@
         <button id="pauseBtn" class="reset">pause</button>
     </div>
 </div>
-
-<script type="text/javascript" src="timecounter.min.js"></script>
-<script type="text/javascript">
-    var tC = new TimeCounter();
-
-    // sets the time of the counter -> using the time string
-    //tC.setTime({timeString: '01:08:33'});
+<script src="../timecounter.js"></script>
+<script>
+    var tC;
 
     // event handler to update the screen of the timer
     document.addEventListener('TimeCounter:tick', function (ev) {
@@ -85,6 +32,11 @@
 
     // event handler to update the screen of the timer
     document.addEventListener('TimeCounter:reset', function (ev) {
+        document.getElementById('timerScreen').innerHTML = ev.detail.time;
+    });
+
+    // event handler to update the screen of the timer on set time
+    document.addEventListener('TimeCounter:settime', function (ev) {
         document.getElementById('timerScreen').innerHTML = ev.detail.time;
     });
 
@@ -107,6 +59,10 @@
     document.getElementById('pauseBtn').addEventListener('click', function (ev) {
         tC.pause();
     });
+
+    window.onload = function () {
+       tC = new TimeCounter({timeString: '13:45:13', hours: 5, minutes: 33, seconds: 15});
+    }
 
 </script>
 </body>
