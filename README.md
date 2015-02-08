@@ -1,14 +1,14 @@
-#Time Counter
+# Time Counter
 **Simple JavaScript time counter**
 
 [DEMO](https://code-worker.de/timecounterjs)
 
 ## Usage 
-At this moment, this TimeCounter is a simple JavaScript-Class with an old-school insertion in your website. 
-`<script src="path/to/timecounter.js"></script>`
-The TimeCounter triggers an custom event on each tick (every second).
+This is a simple JavaScript-Class. You can use it in an old-fashioned way (with the script-tag) or with an AMD-loader.
+
+The TimeCounter triggers a custom event on each tick (every second).
 This event has a `detail` attribute which contains the current time.
-If you want to refresh something (like a paragraph or something else) by the tick, then bind the `TimeCounter:tick`-event on your object.
+If you want to refresh something (like a paragraph or something else) on each tick, then bind the `TimeCounter:tick`-event on your object.
 
 ```js
 // instantiate the time counter
@@ -17,14 +17,26 @@ var timeCounter = new TimeCounter();
 // starts the counter. Default value is "00:00:00"
 timeCounter.start();
 
-// stops the counter and resets the value.
+// stops the counter and resets the internal value.
 timeCounter.stop();
 ```
 
 ## Methods 
-### constructor 
-The constructor has (at this moment) one boolean parameter: `autostart`.
-This parameter says, that the TimeCounter starts directly or not.
+### constructor
+The constructor takes an ```js options ``` parameter.
+It is an object that contains various elements.
+
+```js
+{
+    'autostart' : <true|false>,
+    'hours'     : <int>,
+    'minutes'   : <int>,
+    'seconds'   : <int>,
+    'timeString': <string that contains the starting time like '00:00:00' >
+}
+```
+*Note*: if the user gives a timeString that isn't '00:00:00' and gives the time separately (hours, minutes and seconds), then take the timeString as standard.
+Otherwise build the time by the separately given parameters.
 
 ### start 
 Starts the TimeCounter.
@@ -33,9 +45,15 @@ Starts the TimeCounter.
 Stops the TimeCounter and resets the time value.
 
 ### reset
-Resets the whole counting. (stop, resetProps and starts again)
+Resets the whole counting. (stop, resumeCounting and starts again).
 
-### resetProps
+### pause
+Pauses the current time count.
+
+### resumeCounting
+Resumes the time counting if the user has paused.
+
+### resetTimeProps
 Resets the 'time' properties (hours, seconds, minutes).
 
 ### getTime 

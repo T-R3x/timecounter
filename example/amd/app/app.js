@@ -1,29 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Testing page of TimeCounter.js</title>
-
-    <!-- font -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
-
-    <!-- custom styles -->
-    <link href="css/general.css" rel='stylesheet' type='text/css'>
-</head>
-<body>
-
-<div class="container">
-    <p id="timerScreen">00:00:00</p>
-    <div>
-        <button id="startBtn" class="start">start</button>
-        <button id="stopBtn" class="stop">stop</button>
-        <button id="resetBtn" class="reset">reset</button>
-        <button id="pauseBtn" class="reset">pause</button>
-    </div>
-</div>
-<script src="../timecounter.js"></script>
-<script>
-    var tC;
+define(function (require) {
+    var TimeCounter = require('TimeCounter'),
+        tC;
 
     // event handler to update the screen of the timer
     document.addEventListener('TimeCounter:tick', function (ev) {
@@ -60,10 +37,6 @@
         tC.pause();
     });
 
-    window.onload = function () {
-       tC = new TimeCounter({timeString: '13:45:13', hours: 5, minutes: 33, seconds: 15});
-    }
+    tC = new TimeCounter({timeString: '13:45:13', hours: 5, minutes: 33, seconds: 15});
 
-</script>
-</body>
-</html>
+});
