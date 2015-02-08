@@ -1,7 +1,8 @@
 # Time Counter
 **Simple JavaScript time counter**
 
-[DEMO](https://code-worker.de/timecounterjs)
+[DEMO](https://code-worker.de/timecounterjs/example/testing.html) <br />
+[DEMO-AMD](https://code-worker.de/timecounterjs/example/amd/testing.html)
 
 ## Usage 
 This is a simple JavaScript-Class. You can use it in an old-fashioned way (with the script-tag) or with an AMD-loader.
