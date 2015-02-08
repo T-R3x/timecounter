@@ -1,0 +1,30 @@
+{
+  "name": "TimeCounter",
+  "main": "timecounter.js",
+  "version": "2.0.0",
+  "homepage": "https://github.com/T-R3x/timecounter",
+  "authors": [
+    {
+      "name": "Sascha Hofrichter",
+      "email": "hofrichter.sascha@gmail.com"
+    }
+  ],
+  "ignore": [
+    ".gitignore",
+    "bower.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/T-R3x/timecounter.git"
+  },
+  "description": "Simple time counting JavaScript class",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "TimeCounter",
+    "time",
+    "counter"
+  ],
+  "license": "MIT"
+}
